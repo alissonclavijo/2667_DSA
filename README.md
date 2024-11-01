@@ -9,8 +9,7 @@
 ---
 
 ### 📝 TEMA:
-## **Prototipo funcional de un Sistema para la Contratación de Talento Humano de la 
-Universidad de las Fuerzas Armadas - ESPE: Módulo de registro de postulación.**
+## **Prototipo funcional de un Sistema para la Contratación de Talento Humano de la Universidad de las Fuerzas Armadas - ESPE: Módulo de registro de postulación.**
 
 ---
 
