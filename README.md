@@ -25,5 +25,10 @@
 **Ing. Jenny Ruiz**
 
 ---
+## Enlaces de planificacion de Proyecto
 
-#### 📅 Sangolquí, Noviembre 01, 2024
+- **Tablero de Tello**: [Trello](https://trello.com/b/3j8pXFWB/espe-utics)
+- **Tablero de Jira**: [Jira](https://espe-utics.atlassian.net/jira/software/projects/SCRUM/boards/1)
+
+
+#### 📅 Sangolquí, 2024
