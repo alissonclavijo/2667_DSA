@@ -1,0 +1,40 @@
+import { BloodType, CatastrophicDiseaseType, CivilStatus, DisabilityType, Sex, IdentificationType } from '@app/job-application/enums';
+import { Canton } from '@app/job-application/models/canton.model';
+import { Parish } from '@app/job-application/models/parish.model';
+import { Province } from '@app/job-application/models/province.model';
+
+export interface PersonalInformation {
+    identificationType: IdentificationType;
+    identificationNumber: string;
+    firstName: string;
+    middleName?: string;
+    lastName: string;
+    secondLastName?: string;
+    birthDate: Date;
+    sex: Sex;
+    civilStatus: CivilStatus;
+    nationality: string;
+    residenceYears: number;
+    ethnicity: string;
+    ethnicGroup: string;
+    email: string;
+    secondaryEmail?: string;
+    bloodType: BloodType;
+    hasDisability: boolean;
+    disabilityType?: DisabilityType;
+    disabilityPercentage?: number;
+    mspIdentificationNumber?: string;
+    hasCatastrophicDisease: boolean;
+    catastrophicDiseaseType?: CatastrophicDiseaseType;
+    province: Province;
+    canton: Canton;
+    parish: Parish;
+    mainStreet: string;
+    secondaryStreet?: string;
+    addressNumber: string;
+    addressReference: string;
+    cellPhoneNumber: string;
+    homePhoneNumber?: string;
+    workPhoneNumber?: string;
+    workPhoneExtension?: string;
+}

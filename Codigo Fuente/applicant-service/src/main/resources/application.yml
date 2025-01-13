@@ -1,0 +1,39 @@
+server:
+  port: 8050
+
+spring:
+  application:
+    name: applicant-service
+
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+    password: oracle
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    oracleucp:
+      database-name: UTIC2
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.OracleDialect
+    properties:
+      hibernate:
+        default_schema: UTIC2
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8040/realms/EspeRealm/protocol/openid-connect/certs
+
+keycloak-initializer:
+  initializeOnStartup: false
+  masterRealm: master
+  applicationRealm: EspeRealm
+  client-id: admin-cli
+  client-secret: sWXoli2K1qY5HwYXgOLc1QENhCTTNwSl
+  url: http://${KEYCLOAK_HOST:localhost}:${KEYCLOAK_PORT:8040}/
+
+  # credenciales del usuario administrador de keycloak
+  username: utics
+  password: admin

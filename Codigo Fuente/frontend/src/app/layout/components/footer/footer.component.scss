@@ -1,0 +1,28 @@
+.app-footer {
+    @apply bg-slate-200 text-slate-600 rounded-md;
+    font-size: 0.85em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4em;
+    padding: 1em 2em;
+    margin-top: 2em;
+
+    ul.social-items {
+        display: flex;
+        gap: 1.5em;
+        list-style: none;
+
+        li {
+            a {
+                @apply text-slate-600;
+                transition: color 0.2s;
+                font-size: 1.45em;
+
+                &:hover {
+                    @apply text-slate-800;
+                }
+            }
+        }
+    }
+}

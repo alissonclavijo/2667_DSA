@@ -1,0 +1,165 @@
+<div class="w-full" [formGroup]="publicationForm">
+    <div class="form-group grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'type')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'type')">*</span>
+                <span class="mr-1">Tipo de investigación</span>
+            </label>
+            <p-select
+                [options]="publicationTypeOptions"
+                formControlName="type"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona el tipo"
+                class="w-full"
+                appendTo="body"
+                [required]="isRequiredField(publicationForm, 'type')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('type')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'title')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'title')">*</span>
+                <span class="mr-1">Título completo</span>
+            </label>
+            <input
+                formControlName="title"
+                type="text"
+                class="input"
+                placeholder="Ingresa el título completo"
+                pInputText
+                [required]="isRequiredField(publicationForm, 'title')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('title')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'publisher')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'publisher')">*</span>
+                <span class="mr-1">Título obtenido</span>
+            </label>
+            <input
+                formControlName="publisher"
+                type="text"
+                class="input"
+                placeholder="Ingresa el publicador"
+                pInputText
+                [required]="isRequiredField(publicationForm, 'publisher')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('publisher')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(publicationForm, 'code')">
+            <label class="font-bold mb-1" for="code">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'code')">*</span>
+                <span class="mr-1">ISBN/ISSN/DOI</span>
+            </label>
+            <input
+                formControlName="code"
+                mode="decimal"
+                class="input"
+                placeholder="Ingresa el código ISBN/ISSN/DOI"
+                pInputText
+                [required]="isRequiredField(publicationForm, 'code')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('code')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(publicationForm, 'participationType')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'participationType')">*</span>
+                <span class="mr-1">Participación</span>
+            </label>
+            <p-select
+                formControlName="participationType"
+                [options]="participationTypeOptions"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona el tipo"
+                class="w-full"
+                appendTo="body"
+                [required]="isRequiredField(publicationForm, 'participationType')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('participationType')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'language')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'language')">*</span>
+                <span class="mr-1">Idioma</span>
+            </label>
+            <input
+                formControlName="language"
+                type="text"
+                class="input"
+                placeholder="Ingresa el idioma"
+                pInputText
+                [required]="isRequiredField(publicationForm, 'language')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('language')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'status')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'status')">*</span>
+                <span class="mr-1">Estado de publicación</span>
+            </label>
+            <p-select
+                id="status"
+                formControlName="status"
+                [options]="publicationStatusOptions"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona el estado"
+                class="w-full"
+                appendTo="body"
+                [required]="isRequiredField(publicationForm, 'status')"
+            />
+            <app-form-field-errors [field]="publicationForm.get('status')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'publicationDate')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'publicationDate')">*</span>
+                <span class="mr-1">Fecha de publicación</span>
+            </label>
+            <p-fluid>
+                <p-datepicker
+                    formControlName="publicationDate"
+                    appendTo="body"
+                    [required]="isRequiredField(publicationForm, 'publicationDate')"
+                />
+            </p-fluid>
+            <app-form-field-errors [field]="publicationForm.get('country')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(publicationForm, 'publicationVolumeNumber')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'publicationVolumeNumber')">*</span>
+                <span class="mr-1">N° Volumen de la Publicación</span>
+            </label>
+            <p-fluid>
+                <input
+                    formControlName="publicationVolumeNumber"
+                    class="input"
+                    placeholder="Ingresa el nro de volumen de la publicación"
+                    pInputText
+                    [required]="isRequiredField(publicationForm, 'publicationVolumeNumber')"
+                />
+                <app-form-field-errors [field]="publicationForm.get('publicationVolumeNumber')" />
+            </p-fluid>
+        </div>
+        <div class="flex flex-col field col-12 md:6 lg:6" [ngClass]="ngClassInvalidField(publicationForm, 'pairReview')">
+            <label class="font-bold mb-1">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(publicationForm, 'pairReview')">*</span>
+                <span class="mr-1">Revisión por pares</span>
+            </label>
+            <p-fluid>
+                <p-togglebutton
+                    formControlName="pairReview"
+                    onLabel="SI"
+                    offLabel="NO"
+                    styleClass="!w-16"
+                />
+            </p-fluid>
+            <app-form-field-errors [field]="publicationForm.get('pairReview')" />
+        </div>
+    </div>
+</div>
+<div class="flex justify-end gap-x-5 mt-8">
+    <p-button severity="secondary" label="Cancelar" icon="fas fa-times" iconPos="right" (onClick)="closeDialog()" />
+    <p-button label="Guardar" icon="fas fa-check" iconPos="right" (onClick)="submit()" />
+</div>

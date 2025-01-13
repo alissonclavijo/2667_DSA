@@ -1,0 +1,158 @@
+/*
+<aside class="app-navbar">
+    <div class="wrapper">
+        <div class="menu">
+            <div class="menu-group">
+                <div class="title">
+                    <h3>Postulación</h3>
+                    <a>
+                        <fa-icon [icon]="['fas', 'angle-down']"></fa-icon>
+                    </a>
+                </div>
+                <div class="items">
+                    <div class="menu-item">
+                        <a routerLink="/job-applicant/information" routerLinkActive="active">
+                            <fa-icon [icon]="['fas', 'id-card']"></fa-icon>
+                            <span>Registro de información</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+*/
+
+aside.app-navbar {
+    padding: 0;
+    position: relative;
+    height: 100%;
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: sticky;
+        top: 5rem;
+        left: 0;
+        height: 93vh;
+    }
+
+    .user-menu {
+        @apply bg-slate-100;
+        background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1));
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f5f5f5;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+
+        .user {
+            display: flex;
+            align-items: center;
+
+            img {
+                @apply bg-slate-400 rounded-full;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+
+                .name {
+                    font-size: 1rem;
+                    font-weight: bold;
+                    color: #333;
+                }
+
+                .email {
+                    font-size: 0.9rem;
+                    color: #666;
+                }
+            }
+        }
+    }
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 1rem 1rem;
+
+    .menu-item,
+    .menu-group .items .menu-item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0.7rem;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+
+        a {
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+
+            span {
+                margin-left: 0.5rem;
+            }
+        }
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+
+        &.selected {
+            background-color: #23bd95;
+
+            a {
+                color: #fff;
+            }
+        }
+    }
+
+    .menu-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+
+            h3 {
+                font-size: 1.3rem;
+                font-weight: 500;
+                color: #333;
+            }
+
+            .toggle {
+                font-size: 1.3rem;
+                color: #333;
+            }
+        }
+
+        .items {
+            flex-direction: column;
+            padding: 0 1rem;
+        }
+    }
+
+    .menu-group.active .items {
+        display: flex;
+    }
+}

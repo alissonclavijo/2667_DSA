@@ -1,0 +1,57 @@
+.applicant-information-steps {
+    .p-stepper {
+        flex-basis: 100%;
+    }
+
+    p-stepperheader {
+        background: none;
+    }
+
+    .p-stepper-separator {
+        margin-top: -2rem;
+    }
+
+    .p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-separator {
+        @apply bg-emerald-500;
+    }
+}
+
+.applicant-form-section {
+    background: #fff;
+    display: block;
+    margin-top: 1.5rem;
+    border-radius: 0.3em;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+}
+
+.form-group {
+    .p-inputwrapper,
+    .p-inputtext {
+        width: 100%;
+    }
+
+    .invalid {
+        .p-inputtext,
+        .p-select,
+        .p-selectbutton {
+            border: 1px solid #e53e3e;
+        }
+    }
+
+    p-togglebutton {
+        width: 100%;
+
+        > button {
+            width: 100%;
+
+            &.p-togglebutton.p-togglebutton-checked {
+                color: #fff;
+
+                &::before {
+                    @apply bg-emerald-500;
+                }
+            }
+        }
+    }
+}

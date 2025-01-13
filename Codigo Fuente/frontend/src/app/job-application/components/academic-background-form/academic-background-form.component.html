@@ -1,0 +1,152 @@
+<div class="w-full" [formGroup]="academicBackgroundForm">
+    <div class="form-group grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'educationLevel')">
+            <label class="font-bold mb-1" for="identificationType">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'educationLevel')">*</span>
+                <span class="mr-1">Nivel de instrucción</span>
+            </label>
+            <p-select
+                [options]="educationLevelSelectOptions"
+                id="educationLevel"
+                formControlName="educationLevel"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona el nivel"
+                class="w-full"
+                appendTo="body"
+                [required]="isRequiredField(academicBackgroundForm, 'educationLevel')"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('educationLevel')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'institution')">
+            <label class="font-bold mb-1" for="identificationType">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'educationLevel')">*</span>
+                <span class="mr-1">Institución</span>
+            </label>
+            <input
+                id="institution"
+                formControlName="institution"
+                type="text"
+                class="input"
+                placeholder="Ingresa el nombre de la institución"
+                pInputText
+                [required]="isRequiredField(academicBackgroundForm, 'institution')"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('institution')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'obtainedTitle')">
+            <label class="font-bold mb-1" for="obtainedTitle">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'obtainedTitle')">*</span>
+                <span class="mr-1">Título obtenido</span>
+            </label>
+            <input
+                id="obtainedTitle"
+                formControlName="obtainedTitle"
+                type="text"
+                class="input"
+                placeholder="Ingresa el título obtenido"
+                pInputText
+                [required]="isRequiredField(academicBackgroundForm, 'obtainedTitle')"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('obtainedTitle')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'durationValue')">
+            <label class="font-bold mb-1" for="durationValue">
+                <span class="mr-1">Tiempo de estudio</span>
+            </label>
+            <p-input-number
+                id="durationValue"
+                formControlName="durationValue"
+                mode="decimal"
+                [showButtons]="true"
+                [min]="0"
+                [format]="false"
+                class="input"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('durationValue')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'durationType')">
+            <label class="font-bold mb-1" for="durationType">
+                <span class="mr-1">Tipo de tiempo</span>
+            </label>
+            <p-select
+                id="durationType"
+                formControlName="durationType"
+                [options]="academicDurationTypeSelectOptions"
+                optionLabel="label"
+                optionValue="value"
+                placeholder="Selecciona el tipo"
+                class="w-full"
+                appendTo="body"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('durationType')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'senescytRegistrationNumber')">
+            <label class="font-bold mb-1" for="senescytRegistrationNumber">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'senescytRegistrationNumber')">*</span>
+                <span class="mr-1">Nro registro Senescyt</span>
+            </label>
+            <input
+                id="senescytRegistrationNumber"
+                formControlName="senescytRegistrationNumber"
+                type="text"
+                class="input"
+                placeholder="Ingresa el nro de registro senescyt"
+                pInputText
+                [required]="isRequiredField(academicBackgroundForm, 'senescytRegistrationNumber')"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('senescytRegistrationNumber')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'senescytRegistrationDate')">
+            <label class="font-bold mb-1" for="senescytRegistrationDate">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'senescytRegistrationDate')">*</span>
+                <span class="mr-1">Fecha de registro Senescyt</span>
+            </label>
+            <p-fluid>
+                <p-datepicker
+                    formControlName="senescytRegistrationDate"
+                    id="senescytRegistrationDate"
+                    appendTo="body"
+                    [required]="isRequiredField(academicBackgroundForm, 'senescytRegistrationDate')"
+                />
+            </p-fluid>
+            <app-form-field-errors [field]="academicBackgroundForm.get('senescytRegistrationDate')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'country')">
+            <label class="font-bold mb-1" for="country">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'country')">*</span>
+                <span class="mr-1">País</span>
+            </label>
+            <p-select
+                [options]="countries"
+                id="country"
+                formControlName="country"
+                optionLabel="name"
+                placeholder="Selecciona el país"
+                class="w-full"
+                appendTo="body"
+                [required]="isRequiredField(academicBackgroundForm, 'country')"
+            />
+            <app-form-field-errors [field]="academicBackgroundForm.get('country')" />
+        </div>
+        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(academicBackgroundForm, 'graduationDate')">
+            <label class="font-bold mb-1" for="graduationDate">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(academicBackgroundForm, 'graduationDate')">*</span>
+                <span class="mr-1">Fecha de graduación</span>
+            </label>
+            <p-fluid>
+                <p-datepicker
+                    formControlName="graduationDate"
+                    id="graduationDate"
+                    appendTo="body"
+                    [required]="isRequiredField(academicBackgroundForm, 'graduationDate')"
+                />
+                <app-form-field-errors [field]="academicBackgroundForm.get('graduationDate')" />
+            </p-fluid>
+        </div>
+    </div>
+</div>
+<div class="flex justify-end gap-x-5 mt-8">
+    <p-button severity="secondary" label="Cancelar" icon="fas fa-times" iconPos="right" (onClick)="closeDialog()" />
+    <p-button label="Guardar" icon="fas fa-check" iconPos="right" (onClick)="submit()" />
+</div>

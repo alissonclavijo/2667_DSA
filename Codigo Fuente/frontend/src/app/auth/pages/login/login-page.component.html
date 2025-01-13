@@ -1,0 +1,37 @@
+<div
+    class="bg-gray-100 font-sans leading-normal tracking-normal h-screen flex flex-col items-center justify-center"
+>
+
+    <img src="/assets/images/logo.png" alt="logo" class="w-40 mx-auto mt-8 mb-4" />
+    <div class="bg-white shadow-md rounded-lg p-6 max-w-lg w-full">
+         @if (error) {
+            <div class="mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ error }}</span>
+            </div>
+         }
+        <div class="flex flex-col">
+            <h2 class="text-3xl font-semibold text-center text-emerald-600">
+                <span class="fa-stack fa-2x">
+                    <i class="fa fa-thin fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-solid fa-lock fa-stack-1x fa-inverse"></i>
+                </span>
+            </h2>
+            <button
+                type="submit"
+                class="!rounded-md  bg-emerald-500 text-white font-medium p-3 mt-8 hover:bg-emerald-600 transition-all duration-300 cursor-pointer"
+                (click)="login()"
+                [ngClass]="{
+                    'bg-blue-200 hover:bg-blue-200': (submitting || !form.valid)
+                }"
+            >
+                Autentificarse
+            </button>
+            <p class="text-sm text-gray-400 text-center mt-6">
+                No tienes cuenta?
+                <a routerLink="/auth/register" class="text-black font-semibold hover:underline"
+                    >Registrate</a
+                >
+            </p>
+        </div>
+    </div>
+</div>

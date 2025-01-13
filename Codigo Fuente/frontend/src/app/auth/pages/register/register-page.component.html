@@ -1,0 +1,179 @@
+<div class="bg-gray-100 h-full flex flex-col items-center justify-center">
+    <div
+        class="md:px-0 px-10 overflow-y-auto w-full"
+    >
+        <img src="/assets/images/logo.png" alt="logo" class="w-40 md:w-80 mx-auto mt-8 mb-4" />
+        <div class="bg-white shadow-md rounded-lg p-6 w-full mx-auto mb-10 md:max-w-xl">
+            <h1 class="text-2xl font-semibold mb-6 text-black text-center">Registrarse</h1>
+            <div
+                class="mb-5 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert"
+                *ngIf="error"
+            >
+                <span class="block sm:inline">{{ error }}</span>
+            </div>
+            <form class="min-h-20" [formGroup]="form" (ngSubmit)="register()">
+                <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 h-full">
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'identificationType')">
+                        <label class="mb-1" for="identificationType">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'identificationType')">*</span>
+                            Tipo de documento
+                        </label>
+                        <p-select
+                            formControlName="identificationType"
+                            id="identificationType"
+                            [options]="identificationTypeSelectOptions"
+                            optionLabel="label"
+                            optionValue="value"
+                            placeholder="Selecciona el tipo"
+                            class="w-full"
+                            [required]="isRequiredField(form, 'identificationType')"
+                        />
+                        <app-form-field-errors [field]="form.get('identificationType')" />
+                    </div>
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'identificationNumber')">
+                        <label class="mb-1" for="identificationNumber">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'identificationNumber')">*</span>
+                            Nro de documento
+                        </label>
+                        <input
+                            formControlName="identificationNumber"
+                            id="identificationNumber"
+                            type="text"
+                            class="input"
+                            placeholder="Ingresa tu nro de documento"
+                            pInputText
+                            [required]="isRequiredField(form, 'identificationNumber')"
+                        />
+                        <app-form-field-errors [field]="form.get('identificationNumber')" />
+                    </div>
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'lastName')">
+                        <label class="mb-1" for="lastName">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'lastName')">*</span>
+                            Primer Apellido
+                        </label>
+                        <input
+                            formControlName="lastName"
+                            id="lastName"
+                            type="text"
+                            class="input"
+                            placeholder=""
+                            pInputText
+                            [required]="isRequiredField(form, 'lastName')"
+                        />
+                        <app-form-field-errors [field]="form.get('lastName')" />
+                    </div>
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'secondLastName')">
+                        <label class="mb-1" for="secondLastName">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'secondLastName')">*</span>
+                            Segundo Apellido
+                        </label>
+                        <input
+                            formControlName="secondLastName"
+                            id="secondLastName"
+                            type="text"
+                            class="input"
+                            placeholder=""
+                            pInputText
+                            [required]="isRequiredField(form, 'secondLastName')"
+                        />
+                        <app-form-field-errors [field]="form.get('secondLastName')" />
+                    </div>
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'firstName')">
+                        <label class="mb-1" for="names">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'firstName')">*</span>
+                            Primer nombre
+                        </label>
+                        <input
+                            formControlName="firstName"
+                            id="firstName"
+                            type="text"
+                            class="input"
+                            placeholder=""
+                            pInputText
+                            [required]="isRequiredField(form, 'firstName')"
+                        />
+                        <app-form-field-errors [field]="form.get('firstName')" />
+                    </div>
+                    <div class="flex flex-col field" [ngClass]="ngClassInvalidField(form, 'middleName')">
+                        <label class="mb-1" for="middleName">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'middleName')">*</span>
+                            Segundo nombre
+                        </label>
+                        <input
+                            formControlName="middleName"
+                            id="middleName"
+                            type="text"
+                            class="input"
+                            placeholder=""
+                            pInputText
+                            [required]="isRequiredField(form, 'middleName')"
+                        />
+                        <app-form-field-errors [field]="form.get('middleName')" />
+                    </div>
+                    <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(form, 'password')">
+                        <label class="mb-1" for="password">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'password')">*</span>
+                            Contraseña
+                        </label>
+                        <p-fluid>
+                            <p-password
+                                formControlName="password"
+                                id="password"
+                                [feedback]="true"
+                                [required]="isRequiredField(form, 'password')"
+                                (ngModelChange)="form.get('passwordConfirmation')?.updateValueAndValidity()"
+                            />
+                        </p-fluid>
+                        <app-form-field-errors [field]="form.get('password')" />
+                    </div>
+                    <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(form, 'passwordConfirmation')">
+                        <label class="mb-1" for="passwordConfirmation">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'passwordConfirmation')">*</span>
+                            Confirmar contraseña
+                        </label>
+                        <p-fluid>
+                            <p-password
+                                formControlName="passwordConfirmation"
+                                id="passwordConfirmation"
+                                [feedback]="false"
+                                [required]="isRequiredField(form, 'passwordConfirmation')"
+                            />
+                        </p-fluid>
+                        <app-form-field-errors [field]="form.get('passwordConfirmation')" />
+                    </div>
+                    <div class="flex flex-col field col-12 col-span-1 md:col-span-2" [ngClass]="ngClassInvalidField(form, 'email')">
+                        <label class="mb-1" for="email">
+                            <span class="text-red-500 text-sm" *ngIf="isRequiredField(form, 'email')">*</span>
+                            Correo electrónico
+                        </label>
+                        <input
+                            formControlName="email"
+                            type="email"
+                            class="input"
+                            placeholder="correo@ejemplo.com"
+                            pInputText
+                            [required]="isRequiredField(form, 'email')"
+                        />
+                        <app-form-field-errors [field]="form.get('email')" />
+                    </div>
+                </div>
+                <div class="w-full">
+                    <button
+                        type="submit"
+                        class="!rounded-md w-full bg-blue-500 text-white font-medium p-3 mt-8  hover:bg-blue-800 transition-all duration-300"
+                        [ngClass]="{
+                            'bg-blue-200 hover:bg-blue-200': (submitting || !form.valid)
+                        }"
+                    >
+                        Registrarse
+                    </button>
+                    <p class="text-sm text-gray-400 text-center mt-6">
+                        ¿Ya tienes cuenta?
+                        <a routerLink="/auth/login" class="text-black font-semibold hover:underline">Inicia sesión</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

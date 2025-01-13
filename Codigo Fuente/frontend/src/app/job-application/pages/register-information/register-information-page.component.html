@@ -1,0 +1,657 @@
+<div class="applicant-information-container">
+    <div class="card flex w-full applicant-information-steps">
+        <form [formGroup]="personalInformationForm" class="w-full">
+            <p-stepper [(value)]="activeStep" class="basis-[40rem]">
+                <p-step-list>
+                    @for (step of stepper.items; track step) {
+                        <p-step [value]="$index + 1" class="flex flex-row gap-2">
+                            <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                                <div class="flex flex-col gap-2 justify-center items-center">
+                                    <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onStepListItemClick($index + 1, activateCallback)">
+                                        <span
+                                            class="rounded-full border w-12 h-12 inline-flex items-center justify-center"
+                                            [ngClass]="{
+                                                'bg-emerald-500 border-emerald-500 text-white': value <= activeStep,
+                                                'bg-slate-200 ': value > activeStep
+                                            }"
+                                        >
+                                            <fa-icon [icon]="['fas', step.icon]"></fa-icon>
+                                        </span>
+                                    </button>
+                                    <span>
+                                        <span class="text-sm text-slate-600">{{ step.title }}</span>
+                                    </span>
+                                </div>
+                                <p-stepper-separator *ngIf="value < stepper.items.length"></p-stepper-separator>
+                            </ng-template>
+                        </p-step>
+                    }
+                </p-step-list>
+                <p-step-panels>
+                    <p-step-panel [value]="1">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="applicant-form-section">
+                                <div class="w-full min-h-20">
+                                    <p-divider align="center" type="solid" class="mt-0 mb-8">
+                                        <div class="text-xl font-semibold">Datos personales</div>
+                                    </p-divider>
+                                    <div class="form-group grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'identificationType')">
+                                            <label class="font-bold mb-1" for="identificationType">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'identificationType')">*</span>
+                                                Tipo de documento
+                                            </label>
+                                            <p-select formControlName="identificationType" id="identificationType" [options]="identificationTypeSelectOptions" optionLabel="label" optionValue="value" placeholder="Selecciona el tipo" class="w-full" required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('identificationType')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'identificationNumber')">
+                                            <label class="font-bold mb-1" for="identificationNumber">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'identificationNumber')">*</span>
+                                                Nro de documento
+                                            </label>
+                                            <input formControlName="identificationNumber" id="identificationNumber" type="text" class="input" placeholder="Ingresa tu nro de documento" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('identificationNumber')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'lastName')">
+                                            <label class="font-bold mb-1" for="lastName">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'lastName')">*</span>
+                                                Primer Apellido
+                                            </label>
+                                            <input formControlName="lastName" id="lastName" type="text" class="input" placeholder="" pInputText required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('lastName')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'secondLastName')">
+                                            <label class="font-bold mb-1" for="secondLastName">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'secondLastName')">*</span>
+                                                Segundo Apellido
+                                            </label>
+                                            <input formControlName="secondLastName" id="secondLastName" type="text" class="input" placeholder="" pInputText required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('secondLastName')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'names')">
+                                            <label class="font-bold mb-1" for="firstName">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'firstName')">*</span>
+                                                Primer nombre
+                                            </label>
+                                            <input formControlName="firstName" id="firstName" type="text" class="input" placeholder="" pInputText required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('firstName')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'names')">
+                                            <label class="font-bold mb-1" for="middleName">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'middleName')">*</span>
+                                                Segundo nombre
+                                            </label>
+                                            <input formControlName="middleName" id="middleName" type="text" class="input" placeholder="" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('middleName')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'birthDate')">
+                                            <label class="font-bold mb-1" for="birthDate">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'birthDate')">*</span>
+                                                Fecha de nacimiento
+                                            </label>
+                                            <p-datepicker formControlName="birthDate" id="birthDate" required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('birthDate')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'bloodType')">
+                                            <label class="font-bold mb-1" for="bloodType">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'bloodType')">*</span>
+                                                Tipo de sangre
+                                            </label>
+                                            <p-select formControlName="bloodType" id="bloodType" [options]="bloodTypeSelectOptions" optionLabel="label" optionValue="value" placeholder="Selecciona el tipo" class="w-full" required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('bloodType')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'sex')">
+                                            <label class="font-bold mb-1" for="sex">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'sex')">*</span>
+                                                Sexo
+                                            </label>
+                                            <p-selectbutton formControlName="sex" [options]="sexOptionButtons" [allowEmpty]="false" required>
+                                                <ng-template #item let-item>
+                                                    <fa-icon [icon]="['fas', item.icon]"></fa-icon>
+                                                    <span class="p-ml-2">{{item.label}}</span>
+                                                </ng-template>
+                                            </p-selectbutton>
+                                            <app-form-field-errors [field]="personalInformationForm.get('sex')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'civilStatus')">
+                                            <label class="font-bold mb-1" for="civilStatus">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'civilStatus')">*</span>
+                                                Estado civil
+                                            </label>
+                                            <p-select formControlName="civilStatus" id="civilStatus" [options]="civilStatusSelectOptions" optionLabel="label" optionValue="value" placeholder="Selecciona el estado" class="w-full" required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('civilStatus')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'nationality')">
+                                            <label class="font-bold mb-1" for="nationality">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'nationality')">*</span>
+                                                Nacionalidad
+                                            </label>
+                                            <input formControlName="nationality" type="text" class="input" placeholder="" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('nationality')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'residenceYears')">
+                                            <label class="font-bold mb-1" for="residenceYears">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'residenceYears')">*</span>
+                                                Años de residencia (extranjero)
+                                            </label>
+                                            <p-input-number formControlName="residenceYears" id="residenceYears" mode="decimal" [showButtons]="true" [min]="0" [format]="false" />
+                                            <app-form-field-errors [field]="personalInformationForm.get('residenceYears')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'ethnicity')">
+                                            <label class="font-bold mb-1" for="ethnicity">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'ethnicity')">*</span>
+                                                Identificación étnica
+                                            </label>
+                                            <input formControlName="ethnicity" type="text" class="input" placeholder="" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('ethnicity')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'ethnicGroup')">
+                                            <label class="font-bold mb-1" for="ethnicGroup">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'ethnicGroup')">*</span>
+                                                Grupo étnico (en caso de ser indigena)
+                                            </label>
+                                            <input formControlName="ethnicGroup" type="text" class="input" placeholder="" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('ethnicGroup')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'email')">
+                                            <label class="font-bold mb-1" for="email">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'email')">*</span>
+                                                Correo electrónico principal
+                                            </label>
+                                            <input formControlName="email" type="email" class="input" placeholder="correo@ejemplo.com" pInputText required />
+                                            <app-form-field-errors [field]="personalInformationForm.get('email')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-3 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'secondaryEmail')">
+                                            <label class="font-bold mb-1" for="secondaryEmail">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'secondaryEmail')">*</span>
+                                                Correo electrónico alternativo
+                                            </label>
+                                            <input formControlName="secondaryEmail" type="email" class="input" placeholder="correo.alternativo@ejemplo.com" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('secondaryEmail')" />
+                                        </div>
+                                    </div>
+
+                                    <p-divider align="center" type="solid" class="mt-10 mb-10">
+                                        <div class="text-xl font-semibold">Información adicional discapacidad y/o enfermedad catastrófica</div>
+                                    </p-divider>
+
+                                    <div class="form-group grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'hasDisability')">
+                                            <label class="font-bold mb-1" for="hasDisability">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'hasDisability')">*</span>
+                                                Capacidad especial
+                                            </label>
+                                            <div class="flex flex-row gap-2 items-center w-full">
+                                                <span class="flex-1">Tiene alguna discapacidad especial?</span>
+                                                <p-togglebutton
+                                                    formControlName="hasDisability"
+                                                    onLabel="SI"
+                                                    offLabel="NO"
+                                                    styleClass="!w-16"
+                                                    (onChange)="updateDisabledFields()"
+                                                />
+                                            </div>
+                                            <app-form-field-errors [field]="personalInformationForm.get('hasDisability')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'disabilityType', {
+                                            'diabled': !personalInformationForm.get('hasDisability')?.value,
+                                        })">
+                                            <label class="font-bold mb-1" for="disabilityType">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'disabilityType')">*</span>
+                                                Tipo de discapacidad
+                                            </label>
+                                            <p-select
+                                                formControlName="disabilityType"
+                                                id="disabilityType"
+                                                [options]="disabilityTypeSelectOptions"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                placeholder="Selecciona el tipo"
+                                                class="w-full"
+                                                [required]="!!personalInformationForm.get('hasDisability')?.value"
+                                            />
+                                            <app-form-field-errors [field]="personalInformationForm.get('disabilityType')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'disabilityPercentage')">
+                                            <label class="font-bold mb-1" for="disabilityPercentage">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'disabilityPercentage')">*</span>
+                                                Porcentaje de discapacidad
+                                            </label>
+                                            <p-input-number
+                                                formControlName="disabilityPercentage"
+                                                suffix=" %"
+                                                [showButtons]="true"
+                                                [min]="0"
+                                                [max]="100"
+                                                class="input"
+                                                [required]="!!personalInformationForm.get('hasDisability')?.value"
+                                            />
+                                            <app-form-field-errors [field]="personalInformationForm.get('disabilityPercentage')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'mspIdentificationNumber')">
+                                            <label class="font-bold mb-1" for="mspIdentificationNumber">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'mspIdentificationNumber')">*</span>
+                                                Nro carnet M.S.P.
+                                            </label>
+                                            <input
+                                                formControlName="mspIdentificationNumber"
+                                                type="text"
+                                                class="input"
+                                                pInputText
+                                                [required]="!!personalInformationForm.get('hasDisability')?.value"
+                                            />
+                                            <app-form-field-errors [field]="personalInformationForm.get('mspIdentificationNumber')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'disabilityCertificateNumber')">
+                                            <label class="font-bold mb-1" for="hasCatastrophicDisease">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'hasCatastrophicDisease')">*</span>
+                                                Enfermedad catastrófica
+                                            </label>
+                                            <div class="flex flex-row gap-2 items-center w-full">
+                                                <span class="flex-1">Tiene alguna enfermedad catastrófica?</span>
+                                                <p-togglebutton
+                                                    formControlName="hasCatastrophicDisease"
+                                                    onLabel="SI"
+                                                    offLabel="NO"
+                                                    styleClass="!w-16"
+                                                    (onChange)="updateDisabledFields()"
+                                                />
+                                            </div>
+                                            <app-form-field-errors [field]="personalInformationForm.get('hasCatastrophicDisease')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'catastrophicDiseaseType')">
+                                            <label class="font-bold mb-1" for="catastrophicDiseaseType">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'catastrophicDiseaseType')">*</span>
+                                                Tipo de enfermedad catastrófica
+                                            </label>
+                                            <p-select
+                                                formControlName="catastrophicDiseaseType"
+                                                id="catastrophicDiseaseType"
+                                                [options]="catastrophicDiseaseTypeSelectOptions"
+                                                optionLabel="label"
+                                                optionValue="value"
+                                                placeholder="Selecciona el tipo"
+                                                class="w-full"
+                                                [required]="!!personalInformationForm.get('hasCatastrophicDisease')?.value"
+                                            />
+                                            <app-form-field-errors [field]="personalInformationForm.get('catastrophicDiseaseType')" />
+                                        </div>
+                                    </div>
+
+                                    <p-divider align="center" type="solid" class="mt-8">
+                                        <div class="text-xl font-semibold">Dirección domiciliaria permanente</div>
+                                    </p-divider>
+
+                                    <div class="form-group grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-6">
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'province')">
+                                            <label class="font-bold mb-1" for="province">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'province')">*</span>
+                                                Provincia
+                                            </label>
+                                            <input formControlName="province" id="province" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('province')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'canton')">
+                                            <label class="font-bold mb-1" for="canton">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'canton')">*</span>
+                                                Cantón
+                                            </label>
+                                            <input formControlName="canton" id="canton" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('canton')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'parish')">
+                                            <label class="font-bold mb-1" for="parish">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'parish')">*</span>
+                                                Parroquia
+                                            </label>
+                                            <input formControlName="parish" id="parish" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('parish')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'mainStreet')">
+                                            <label class="font-bold mb-1" for="mainStreet">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'mainStreet')">*</span>
+                                                Calle principal
+                                            </label>
+                                            <input formControlName="mainStreet" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('mainStreet')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'secondaryStreet')">
+                                            <label class="font-bold mb-1" for="secondaryStreet">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'secondaryStreet')">*</span>
+                                                Calle secundaria
+                                            </label>
+                                            <input formControlName="secondaryStreet" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('secondaryStreet')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'addressNumber')">
+                                            <label class="font-bold mb-1" for="addressNumber">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'addressNumber')">*</span>
+                                                Número
+                                            </label>
+                                            <input formControlName="addressNumber" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('addressNumber')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'addressReference')">
+                                            <label class="font-bold mb-1" for="addressReference">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'addressReference')">*</span>
+                                                Referencia
+                                            </label>
+                                            <input formControlName="addressReference" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('addressReference')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'homePhoneNumber')">
+                                            <label class="font-bold mb-1" for="homePhoneNumber">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'homePhoneNumber')">*</span>
+                                                Teléfono domicilio
+                                            </label>
+                                            <input formControlName="homePhoneNumber" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('homePhoneNumber')" />
+                                        </div>
+                                        <div class="flex flex-col field col-12 md:col-6 lg:col-6" [ngClass]="ngClassInvalidField(personalInformationForm, 'cellPhoneNumber')">
+                                            <label class="font-bold mb-1" for="cellPhoneNumber">
+                                                <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'cellPhoneNumber')">*</span>
+                                                Teléfono celular
+                                            </label>
+                                            <input formControlName="cellPhoneNumber" type="text" class="input" pInputText />
+                                            <app-form-field-errors [field]="personalInformationForm.get('cellPhoneNumber')" />
+                                        </div>
+                                        <div class="flex flex-row field col-12 md:col-6 lg:col-6 w-full gap-x-4">
+                                            <div class="flex flex-col flex-1" [ngClass]="ngClassInvalidField(personalInformationForm, 'workPhoneNumber')">
+                                                <label class="font-bold mb-1" for="workPhoneNumber">
+                                                    <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'workPhoneNumber')">*</span>
+                                                    Teléfono trabajo
+                                                </label>
+                                                <input formControlName="workPhoneNumber" type="text" class="input" pInputText />
+                                                <app-form-field-errors [field]="personalInformationForm.get('workPhoneNumber')" />
+                                            </div>
+                                            <div class="flex flex-col w-24" [ngClass]="ngClassInvalidField(personalInformationForm, 'workPhoneExtension')">
+                                                <label class="font-bold mb-1" for="workPhoneExtension">
+                                                    <span class="text-red-500 text-sm" *ngIf="isRequiredField(personalInformationForm, 'workPhoneExtension')">*</span>
+                                                    Extensión
+                                                </label>
+                                                <input formControlName="workPhoneExtension" type="text" class="input" pInputText />
+                                                <app-form-field-errors [field]="personalInformationForm.get('workPhoneExtension')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex mt-10 justify-end">
+                                    <p-button (onClick)="savePersonalInformation(activateCallback.bind(null, 2))" label="Siguiente" icon="fa-solid fa-angle-right" iconPos="right" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                    <p-step-panel [value]="2">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="w-full min-h-20">
+                                <div class="applicant-form-section mb-12">
+                                    <p-divider align="left" type="solid" class="mt-0 mb-2">
+                                        <div class="text-xl font-semibold">Formación académica</div>
+                                    </p-divider>
+
+                                    <div class="flex flex-col justify-end items-end mb-5">
+                                        <p-button severity="secondary" label="Agregar nueva entrada" icon="fas fa-plus" iconPos="left" (onClick)="showDialogForm('academicBackgroundForm')" />
+                                    </div>
+                                    <p-table
+                                        [value]="academicBackgroundEntries"
+                                        [paginator]="false"
+                                        [scrollable]="true" responsiveLayout="stack"
+                                        [scrollHeight]="'500px'"
+                                    >
+                                        <ng-template #header>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nivel de instrucción</th>
+                                                <th>Institución</th>
+                                                <th>Título obtenido</th>
+                                                <th>Tiempo de estudio</th>
+                                                <th>Nro. registro senescyt</th>
+                                                <th>Fecha registro senescyt</th>
+                                                <th>País</th>
+                                                <th>Fecha graduación</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #body let-entry let-i="rowIndex">
+                                            <tr>
+                                                <td>{{ entry._index + 1 }}</td>
+                                                <td>{{ educationLevelLabels[entry.educationLevel] }}</td>
+                                                <td>{{ entry.institution }}</td>
+                                                <td>{{ entry.obtainedTitle }}</td>
+                                                <td>
+                                                    {{ entry.durationValue }} {{ academicDurationTypeLabels[entry.durationType] }}
+                                                </td>
+                                                <td>{{ entry.senescytRegistrationNumber }}</td>
+                                                <td>{{ entry.senescytRegistrationDate | date: 'dd/MM/yyyy' }}</td>
+                                                <td>{{ entry.country.name }}</td>
+                                                <td>{{ entry.graduationDate | date: 'dd/MM/yyyy' }}</td>
+                                                <td>
+                                                    <div class="flex gap-x-2">
+                                                        <p-button
+                                                            severity="info"
+                                                            size="small"
+                                                            icon="fas fa-pencil-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="showDialogForm('academicBackgroundForm', entry)"
+                                                        />
+                                                        <p-button
+                                                            severity="danger"
+                                                            size="small"
+                                                            icon="fas fa-trash-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="deleteEntry('academicBackgroundEntries', entry)"
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #emptymessage>
+                                            <tr>
+                                                <td colspan="10">
+                                                    @if (errors.academicBackground.academicBackgroundEntries) {
+                                                        <p-message *ngIf="errors.academicBackground.academicBackgroundEntries"
+                                                            severity="error"
+                                                            text="{{ errors.academicBackground.academicBackgroundEntries }}"
+                                                        />
+                                                    } @else {
+                                                        <p-message severity="info" text="No se han encontrado registros" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+
+                                <div class="applicant-form-section mb-12">
+                                    <p-divider align="left" type="solid" class="mt-0 mb-2">
+                                        <div class="text-xl font-semibold">Idiomas</div>
+                                    </p-divider>
+
+                                    <div class="flex flex-col justify-end items-end mb-5">
+                                        <p-button severity="secondary" label="Agregar nueva entrada" icon="fas fa-plus" iconPos="left" (onClick)="showDialogForm('languageKnowledgeForm')" />
+                                    </div>
+                                    <p-table
+                                        [value]="languageEntries"
+                                        [paginator]="false"
+                                        [scrollable]="true" responsiveLayout="stack"
+                                        [scrollHeight]="'500px'"
+                                    >
+                                        <ng-template #header>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Idioma</th>
+                                                <th>Nivel según marco comun europeo de referencia para lenguas</th>
+                                                <th>Fecha de certificación</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #body let-entry let-i="rowIndex">
+                                            <tr>
+                                                <td>{{ entry._index + 1 }}</td>
+                                                <td>{{ entry.language }}</td>
+                                                <td>{{ entry.level }}</td>
+                                                <td>{{ entry.certificationDate | date: 'dd/MM/yyyy' }}</td>
+                                                <td>
+                                                    <div class="flex gap-x-2">
+                                                        <p-button
+                                                            severity="info"
+                                                            size="small"
+                                                            icon="fas fa-pencil-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="showDialogForm('languageKnowledgeForm', entry)"
+                                                        />
+                                                        <p-button
+                                                            severity="danger"
+                                                            size="small"
+                                                            icon="fas fa-trash-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="deleteEntry('languageEntries', entry)"
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #emptymessage>
+                                            <tr>
+                                                <td colspan="5">
+                                                    @if (errors.academicBackground.languageEntries) {
+                                                        <p-message *ngIf="errors.academicBackground.languageEntries"
+                                                            severity="error"
+                                                            text="{{ errors.academicBackground.languageEntries }}"
+                                                        />
+                                                    } @else {
+                                                        <p-message severity="info" text="No se han encontrado registros" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+
+                                <div class="applicant-form-section mb-12">
+                                    <p-divider align="left" type="solid" class="mt-0 mb-2">
+                                        <div class="text-xl font-semibold">Publicaciones</div>
+                                    </p-divider>
+
+                                    <div class="flex flex-col justify-end items-end mb-5">
+                                        <p-button severity="secondary" label="Agregar nueva entrada" icon="fas fa-plus" iconPos="left" (onClick)="showDialogForm('publicationForm')" />
+                                    </div>
+                                    <p-table
+                                        [value]="publicationEntries"
+                                        [paginator]="false"
+                                        [scrollable]="true" responsiveLayout="stack"
+                                        [scrollHeight]="'500px'"
+                                    >
+                                        <ng-template #header>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Tipo</th>
+                                                <th>Título completo</th>
+                                                <th>Publicador</th>
+                                                <th>ISSN/ISBN/DOI</th>
+                                                <th>Participación</th>
+                                                <th>Idioma</th>
+                                                <th>Estado</th>
+                                                <th>Fecha</th>
+                                                <th>Nro volumen</th>
+                                                <th>Revision de pares</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #body let-entry let-i="rowIndex">
+                                            <tr>
+                                                <td>{{ i + 1 }}</td>
+                                                <td>{{ publicationTypeLabelOf(entry.type) }}</td>
+                                                <td>{{ entry.title }}</td>
+                                                <td>{{ entry.publisher }}</td>
+                                                <td>{{ entry.code }}</td>
+                                                <td>{{ participationTypeLabelOf(entry.participationType) }}</td>
+                                                <td>{{ entry.language }}</td>
+                                                <td>{{ publicationStatusLabelOf(entry.status) }}</td>
+                                                <td>{{ entry.publicationDate | date: 'dd/MM/yyyy' }}</td>
+                                                <td>{{ entry.publicationVolumeNumber }}</td>
+                                                <td>{{ entry.pairReview ? 'SI' : 'NO' }}</td>
+                                                <td>
+                                                    <div class="flex gap-x-2">
+                                                        <p-button
+                                                            severity="info"
+                                                            size="small"
+                                                            icon="fas fa-pencil-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="showDialogForm('publicationForm', entry)"
+                                                        />
+                                                        <p-button
+                                                            severity="danger"
+                                                            size="small"
+                                                            icon="fas fa-trash-alt"
+                                                            iconPos="left"
+                                                            class="p-button-rounded p-button-text"
+                                                            (onClick)="deleteEntry('publicationEntries', entry)"
+                                                        />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template #emptymessage>
+                                            <tr>
+                                                <td colspan="11">
+                                                    @if (errors.academicBackground.publicationEntries) {
+                                                        <p-message *ngIf="errors.academicBackground.publicationEntries"
+                                                            severity="error"
+                                                            text="{{ errors.academicBackground.publicationEntries }}"
+                                                        />
+                                                    } @else {
+                                                        <p-message severity="info" text="No se han encontrado registros" />
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+
+                            <div class="flex mt-10 justify-end gap-x-5">
+                                <p-button (onClick)="activateCallback(1)" label="Anterior" icon="fa-solid fa-angle-left" iconPos="left" />
+                                <p-button (onClick)="saveAcademicBackground(activateCallback.bind(null, 3))" label="Siguiente" icon="fa-solid fa-angle-right" iconPos="right" />
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                    <p-step-panel [value]="3">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="applicant-form-section">
+                                <div class="w-full min-h-20">
+                                    <p-divider align="center" type="solid" class="mt-0 mb-8">
+                                        <div class="text-xl font-semibold">Experiencia profesional</div>
+                                    </p-divider>
+                                </div>
+                                <div class="flex mt-10 justify-end gap-x-5">
+                                    <p-button (onClick)="activateCallback(2)" label="Anterior" icon="fa-solid fa-angle-left" iconPos="left" />
+                                    <p-button (onClick)="activateCallback(4)" label="Siguiente" icon="fa-solid fa-angle-right" iconPos="right" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                    <p-step-panel [value]="4">
+                        <ng-template #content let-activateCallback="activateCallback">
+                            <div class="applicant-form-section">
+                                <div class="w-full min-h-20">
+                                    <p-divider align="center" type="solid" class="mt-0 mb-8">
+                                        <div class="text-xl font-semibold">Capacitación (ultimos 5 años)</div>
+                                    </p-divider>
+                                </div>
+                                <div class="flex mt-10 justify-end gap-x-5">
+                                    <p-button (onClick)="activateCallback(3)" label="Anterior" icon="fa-solid fa-angle-left" iconPos="left" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-step-panel>
+                </p-step-panels>
+            </p-stepper>
+        </form>
+    </div>
+</div>

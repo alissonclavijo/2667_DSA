@@ -1,0 +1,39 @@
+<div class="w-full" [formGroup]="languageKnowledgeForm">
+    <div class="form-group grid grid-cols-1 gap-x-8 gap-y-6">
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(languageKnowledgeForm, 'language')">
+            <label class="font-bold mb-1" for="language">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(languageKnowledgeForm, 'language')">*</span>
+                <span class="mr-1">Idioma</span>
+            </label>
+            <input formControlName="language" type="text" class="input" placeholder="Ingresa el idioma" pInputText [required]="isRequiredField(languageKnowledgeForm, 'language')" />
+            <app-form-field-errors [field]="languageKnowledgeForm.get('language')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(languageKnowledgeForm, 'level')">
+            <label class="font-bold mb-1" for="level">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(languageKnowledgeForm, 'level')">*</span>
+                <span class="mr-1">Nivel</span>
+            </label>
+            <input formControlName="level" type="text" class="input" placeholder="Ingresa el nivel" pInputText [required]="isRequiredField(languageKnowledgeForm, 'level')" />
+            <app-form-field-errors [field]="languageKnowledgeForm.get('level')" />
+        </div>
+        <div class="flex flex-col field col-12" [ngClass]="ngClassInvalidField(languageKnowledgeForm, 'certificationDate')">
+            <label class="font-bold mb-1" for="certificationDate">
+                <span class="text-red-500 text-sm mr-1" *ngIf="isRequiredField(languageKnowledgeForm, 'certificationDate')">*</span>
+                <span class="mr-1">Fecha de certificación</span>
+            </label>
+            <p-fluid>
+                <p-datepicker
+                    formControlName="certificationDate"
+                    id="certificationDate"
+                    appendTo="body"
+                    [required]="isRequiredField(languageKnowledgeForm, 'certificationDate')"
+                />
+                <app-form-field-errors [field]="languageKnowledgeForm.get('certificationDate')" />
+            </p-fluid>
+        </div>
+    </div>
+</div>
+<div class="flex justify-end gap-x-5 mt-8">
+    <p-button severity="secondary" label="Cancelar" icon="fas fa-times" iconPos="right" (onClick)="closeDialog()" />
+    <p-button label="Guardar" icon="fas fa-check" iconPos="right" (onClick)="submit()" />
+</div>

@@ -1,0 +1,42 @@
+<aside class="app-navbar">
+    <div class="wrapper">
+        <div class="menu">
+            <div class="menu-group">
+                <div class="title">
+                    <h3>Postulación</h3>
+                    <a class="toggle">
+                        <fa-icon class="icon" [fixedWidth]="true" [icon]="['fas', 'angle-down']"></fa-icon>
+                    </a>
+                </div>
+                <div class="items">
+                    <div class="menu-item selected">
+                        <a routerLink="/job-application/register-information" routerLinkActive="active">
+                            <fa-icon [fixedWidth]="true" [icon]="['fas', 'id-card']"></fa-icon>
+                            <span>Registro de información</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a routerLink="/job-application/register-information" routerLinkActive="active">
+                            <fa-icon [fixedWidth]="true" [icon]="['fas', 'file-alt']"></fa-icon>
+                            <span>Postulación</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user-menu">
+            <div class="user w-full px-4 items-center justify-center">
+                <div class="avatar w-20 flex items-center justify-center">
+                    <img class="w-20 h-20" src="data:image/gif;base64,R0lGODdhAQABAIABAAAAAD24nCwAAAAAAQABAAACAkwBADs=" alt="Avatar">
+                </div>
+                <div class="info w-full ml-5">
+                    <span class="name truncate max-w-40" title="{{ userProfile?.firstName }} {{ userProfile?.lastName }}">{{ userProfile?.firstName }} {{ userProfile?.lastName }}</span>
+                    <span class="emailtruncate max-w-40" [title]="userProfile?.email">{{ userProfile?.email }}</span>
+                </div>
+            </div>
+            <a class="logout cursor-pointer min-w-16 text-center" (click)="logout()">
+                <fa-icon class="icon" [fixedWidth]="true" [icon]="['fas', 'sign-out-alt']"></fa-icon>
+            </a>
+        </div>
+    </div>
+</aside>
